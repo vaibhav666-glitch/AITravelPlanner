@@ -1,22 +1,28 @@
-import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import cors from "cors";
+import mongoose from "mongoose";
+import app from "./app";
 
 dotenv.config();
 
-const app: Express = express();
 const PORT = process.env.PORT || 5000;
 
-// middleware
-app.use(cors());
-app.use(express.json());
+const startServer = async () => {
+  try {
+    if (!process.env.MONGO_URI) {
+      throw new Error("MONGO_URI is not defined");
+    }
 
-// route
-app.get("/", (req: Request, res: Response) => {
-  res.send("Server is running 🚀");
-});
+    await mongoose.connect(process.env.MONGO_URI);
 
-// server start
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+    console.log(" MongoDB Connected");
+
+    app.listen(PORT, () => {
+      console.log(` Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Server Error:", error);
+    process.exit(1);
+  }
+};
+
+startServer();
