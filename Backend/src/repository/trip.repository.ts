@@ -1,14 +1,7 @@
 import { Trip } from "../models/trip.model";
 
 export const createTrip=async(data:any)=>{
-   console.log(
-  "HOTEL SCHEMA TYPE:",
-  Trip.schema.path("hotels").instance
-);
-console.log(
-  "HOTEL SCHEMA:",
-  Trip.schema.path("hotels")
-);
+ 
     return await Trip.create(data);
 }
 

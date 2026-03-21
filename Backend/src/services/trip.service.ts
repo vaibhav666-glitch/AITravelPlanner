@@ -13,7 +13,6 @@ export const createTripService = async (data: any) => {
     hotels: aiData.hotels,
   };
 
-  console.log("tripData",tripData)
   return await tripRepo.createTrip(tripData);
 }
 catch(err){
