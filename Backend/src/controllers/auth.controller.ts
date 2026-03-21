@@ -3,8 +3,8 @@ import * as authService from "../services/auth.service"
 
 export const register=async(req:Request,res:Response)=>{
     try{
-        const {emails,password}=req.body;
-        const user=await authService.registerUser(emails,password)
+        const {email,password}=req.body;
+        const user=await authService.registerUser(email,password)
 
         res.status(201).json({
             message:"User created",
