@@ -44,3 +44,16 @@ export const getTripById = async (req: AuthRequest, res: Response) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const updateTripById = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.user.id;
+    const { id } = req.params;
+
+    const trip = await tripService.updateTripByIdService({...req.body},userId,id );
+
+    res.json(trip);
+  } catch (error: any) {
+    res.status(404).json({ message: error.message });
+  }
+};

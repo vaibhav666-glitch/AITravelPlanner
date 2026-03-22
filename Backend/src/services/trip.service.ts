@@ -36,3 +36,18 @@ export const getTripByIdService = async (
 
   return trip;
 };
+
+export const updateTripByIdService = async (
+  data:any,
+  userId: string,
+  tripId: string,
+ 
+) => {
+  const trip = await tripRepo.updateTripById(data, userId,tripId);
+
+  if (!trip) {
+    throw new Error("Trip not found or unauthorized");
+  }
+
+  return trip;
+};
