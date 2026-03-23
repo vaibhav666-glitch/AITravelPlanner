@@ -1,8 +1,9 @@
 // services/weather.service.ts
 
 import axios from "axios";
-
-const API_KEY = "f1d5de12a4b3404c8fd144455262303"
+import dotenv from "dotenv";
+dotenv.config();
+const API_KEY = process.env.WEATHER_API_KEY
 
 export const getWeatherForecast = async (
   destination: string,
