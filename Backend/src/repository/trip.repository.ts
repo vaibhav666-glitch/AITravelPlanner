@@ -18,7 +18,6 @@ export const updateTripById = async (
   userId: string,
   tripId: string
 ) => {
-    console.log("am data paji",data)
   return await Trip.findOneAndUpdate(
     { _id: tripId, userId },
     {

@@ -1,6 +1,7 @@
 import { ChatGroq } from "@langchain/groq";
 import dotenv from "dotenv";
 import { z } from "zod";
+import { getWeatherForecast } from "./weather.service";
 
 dotenv.config();
 
@@ -37,24 +38,59 @@ const model = new ChatGroq({
 
 const structuredModel = model.withStructuredOutput(schema);
 
+
 export const generateItinerary = async (data: any) => {
   try {
     const { destination, days, budgetType, interests } = data;
 
+ 
+    const weather = await getWeatherForecast(destination, days);
+console.log("am weather",weather)
+    const weatherText = weather
+      .map(
+        (w) =>
+          `Day ${w.day}: ${w.weather}, ${w.temp}°C `
+      )
+      .join("\n");
+
     const prompt = `
-Generate a travel itinerary.
+You are an expert AI travel planner.
+
+Generate a complete itinerary.
 
 Destination: ${destination}
 Days: ${days}
 Budget: ${budgetType}
 Interests: ${interests.join(", ")}
+
+---
+
+### Weather Forecast:
+${weatherText}
+
+---
+
+### Rules:
+- Plan activities according to weather
+- Rain → indoor (museum, cafes, shopping)
+- Sunny → outdoor (walking, sightseeing)
+- Suggest BEST transport:
+  - Rain → metro / cab
+  - Sunny → walking
+- Keep realistic travel flow
+
+---
+
+### Output:
+Return structured JSON with itinerary, budget, hotels
 `;
 
-  
     const result = await structuredModel.invoke(prompt);
 
-
-    return result;
+     return {
+      ...result,
+      weather, // 👈 IMPORTANT
+    };
   } catch (error: any) {
     throw error;
   }

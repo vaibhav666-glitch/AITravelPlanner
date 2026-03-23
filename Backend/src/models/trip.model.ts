@@ -14,6 +14,13 @@ const hotelSchema = new mongoose.Schema({
   priceRange: String,
 });
 
+const weatherSchema = new mongoose.Schema({
+  day: Number,
+  date:String,
+  weather: String,
+  temp: Number,
+});
+
 
 const tripSchema = new mongoose.Schema(
   {
@@ -41,6 +48,7 @@ const tripSchema = new mongoose.Schema(
     },
 
      hotels: [hotelSchema],
+     weather:[weatherSchema]
   },
   { timestamps: true }
 );

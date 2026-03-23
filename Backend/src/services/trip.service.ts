@@ -11,6 +11,7 @@ export const createTripService = async (data: any) => {
     itinerary: aiData.itinerary,
     budgetBreakdown: aiData.budgetBreakdown,
     hotels: aiData.hotels,
+    weather:aiData.weather
   };
 
   return await tripRepo.createTrip(tripData);
