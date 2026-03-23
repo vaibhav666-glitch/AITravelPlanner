@@ -2,13 +2,14 @@
 import { regenerateDayService } from "@/services/ai.service";
 import { updateTrip } from "@/services/trips.service";
 import { useEffect, useState } from "react";
+import Loader from "../common/Loader";
 
 const TripEditor = ({ trip, setTrip }: any) => {
   const [activityInputs, setActivityInputs] = useState<any>({});
   const [instructions, setInstructions] = useState<any>({});
   const [loadingDay, setLoadingDay] = useState<number | null>(null);
   const [originalTrip, setOriginalTrip] = useState<any>(null);
-
+  const [loading,setLoading]=useState(false)
 
   useEffect(() => {
     setOriginalTrip(JSON.stringify(trip.itinerary));
@@ -89,6 +90,7 @@ const TripEditor = ({ trip, setTrip }: any) => {
   
   const handleUpdateTrip = async () => {
     try {
+        setLoading(true)
       await updateTrip({itinerary:trip.itinerary}, trip._id);
 
       // reset dirty state
@@ -96,8 +98,12 @@ const TripEditor = ({ trip, setTrip }: any) => {
     } catch (err) {
       console.error(err);
     }
+    finally{
+        setLoading(false)
+    }
   };
-
+if(loading)
+    return <Loader/>
   return (
     <div className="max-w-6xl mx-auto space-y-10 px-4">
 

@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import TravelForm from "@/components/trip/TravelForm";
 import TripEditor from "@/components/trip/TripEditor";
 import { createTrip, getTripById } from "@/services/trips.service";
+import Loader from "@/components/common/Loader";
 
 const TripPage = () => {
   const params = useParams();
@@ -42,6 +43,8 @@ const TripPage = () => {
       setLoading(false);
     }
   };
+if(loading)
+  return <Loader/>
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-indigo-900 relative overflow-hidden">

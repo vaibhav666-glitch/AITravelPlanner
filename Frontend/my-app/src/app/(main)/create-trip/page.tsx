@@ -4,6 +4,7 @@ import { useState } from "react";
 import TravelForm from "@/components/trip/TravelForm";
 import TripEditor from "@/components/trip/TripEditor";
 import { createTrip } from "@/services/trips.service";
+import Loader from "@/components/common/Loader";
 
 const CreateTripPage = () => {
   const [trip, setTrip] = useState<any>(null);
@@ -20,7 +21,9 @@ const CreateTripPage = () => {
       setLoading(false);
     }
   };
-
+if(loading)
+  return <Loader/>
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-indigo-900 relative overflow-hidden">
 

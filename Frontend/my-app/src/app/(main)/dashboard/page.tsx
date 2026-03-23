@@ -1,5 +1,6 @@
 "use client";
 
+import Loader from "@/components/common/Loader";
 import { getTrips } from "@/services/trips.service";
 import { Plus } from "lucide-react";
 import Link from "next/link";
@@ -16,16 +17,30 @@ const getWeatherIcon = (type: string) => {
 
 const DashboardPage = () => {
   const [trips, setTrips] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
+    
     const fetchData = async () => {
-      const res = await getTrips();
-      setTrips(res);
+      try{
+        setLoading(true)
+        const res = await getTrips();
+         setTrips(res);
+      }
+      catch(err){
+        console.error(err);
+      }
+     finally{
+      setLoading(false)
+     }
+      
     };
     fetchData();
   }, []);
 
+  if(loading)
+    <Loader/>
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-indigo-900 p-6">
 
