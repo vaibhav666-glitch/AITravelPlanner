@@ -44,19 +44,34 @@ const TripPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center p-6">
-      <div className="w-full max-w-2xl bg-white shadow-md rounded-xl p-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-indigo-900 relative overflow-hidden">
 
+    
+      <div className="absolute w-[500px] h-[500px] bg-blue-500 opacity-20 blur-3xl rounded-full top-[-100px] left-[-100px]" />
+      <div className="absolute w-[400px] h-[400px] bg-purple-500 opacity-20 blur-3xl rounded-full bottom-[-100px] right-[-100px]" />
+
+     
+    <div
+  className={`backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-3xl p-8 w-full z-10 transition-all ${
+    trip ? "max-w-7xl" : "max-w-xl"
+  }`}
+>
         {!trip ? (
           <>
-            <h1 className="text-2xl font-bold mb-6 text-center">
-              Create Your Trip
+            <h1 className="text-2xl font-bold mb-2 text-center text-white">
+              Create Your Trip ✈️
             </h1>
+
+            <p className="text-center text-gray-300 mb-6 text-sm">
+              Let AI craft your perfect journey
+            </p>
+
             <TravelForm onSubmit={handleTrip} />
           </>
         ) : (
           <TripEditor trip={trip} setTrip={setTrip} />
         )}
+
       </div>
     </div>
   );

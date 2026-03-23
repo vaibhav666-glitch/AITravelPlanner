@@ -3,15 +3,16 @@
 import React from "react";
 
 interface InputFieldProps {
-  label: string;
+  label?: string;
   name: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type?: string;
   min?: number;
+  className?:string;
+  max?:number;
 }
-
 const InputField: React.FC<InputFieldProps> = ({
   label,
   name,
@@ -20,10 +21,17 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   type = "text",
   min,
+  className = "",
+  max,
 }) => {
   return (
-    <div className="mb-4">
-      <label className="block font-medium mb-1">{label}</label>
+    <div className="space-y-1">
+      {label && (
+        <label className="text-sm text-gray-300 font-medium">
+          {label}
+        </label>
+      )}
+
       <input
         type={type}
         name={name}
@@ -31,10 +39,12 @@ const InputField: React.FC<InputFieldProps> = ({
         onChange={onChange}
         placeholder={placeholder}
         min={min}
-        className="w-full border rounded px-3 py-2 focus:outline-none focus:ring"
+        max={max}
+        className={`w-full px-4 py-2 rounded-xl bg-white/10 border border-white/20 
+        text-white placeholder-gray-400 outline-none 
+        focus:ring-2 focus:ring-indigo-400 transition ${className}`}
       />
     </div>
   );
 };
-
 export default InputField;

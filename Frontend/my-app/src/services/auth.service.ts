@@ -13,6 +13,7 @@ if(res?.data?.token)
     }
     catch(err){
         console.error(err)
+         throw err
     }
 };
 
@@ -24,9 +25,13 @@ export const signupUser = async (data: {
   const res = await axiosInstance.post("/auth/register", data);
    if(res?.data?.message=== "User created")
     await loginUser(data)
+
+  console.log("am res",res)
   return res.data;
   }
     catch(err){
-        console.error(err)
+      console.log("yuo baba ki")
+        console.log(err)
+        throw err
     }
 };
