@@ -102,6 +102,23 @@ const TripEditor = ({ trip, setTrip }: any) => {
         setLoading(false)
     }
   };
+
+  const formatPriceRange = (priceRange:string) => {
+  if (!priceRange) return "N/A";
+
+  const length = priceRange.length;
+
+  switch (length) {
+    case 1:
+      return "Moderate";
+    case 2:
+      return "Expensive";
+    case 3:
+      return "Luxury";
+    default:
+      return priceRange;
+  }
+};
 if(loading)
     return <Loader/>
   return (
@@ -248,7 +265,7 @@ if(loading)
         className="p-3 border rounded-xl mb-2 flex justify-between"
       >
         <span>{hotel.name}</span>
-        <span className="text-gray-500">{hotel.priceRange}</span>
+        <span className="text-gray-500">{formatPriceRange(hotel.priceRange)}</span>
       </div>
     ))}
   </div>

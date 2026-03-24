@@ -48,7 +48,7 @@ const [showPassword, setShowPassword] = useState(false);
     try {
       setLoading(true);
      const resp= await onSubmit(form, isSignup);
-     console.log(resp,"baley")
+     //console.log(resp,"baley")
      router.push("/dashboard");
     } catch (err: any) {
       setErrors({ backend: err?.response?.data?.message || "Something went wrong" });
