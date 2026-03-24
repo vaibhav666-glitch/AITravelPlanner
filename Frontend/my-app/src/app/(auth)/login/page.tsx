@@ -1,37 +1,23 @@
 "use client";
 
 import LoginForm from "@/components/auth/LoginForm";
-import Loader from "@/components/common/Loader";
-
 import { loginUser, signupUser } from "@/services/auth.service";
-import { useState } from "react";
+
 
 const LoginPage = () => {
- const [loading,setLoading]=useState(false)
+
 
   const handleAuth = async (form: any, isSignup: boolean) => {
-    try{
-    setLoading(true)
       if (isSignup) {
       await signupUser(form);
     } else {
       await loginUser(form);
     }
-    
-    }
-    
-    catch(err){
-      throw err
-    }
-    finally{
-      setLoading(false)
-    }
-    
+     
   };
 
 
-    if(loading)
-      return <Loader/>
+
   
     return (
 

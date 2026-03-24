@@ -4,6 +4,7 @@ import { useState } from "react";
 import InputField from "../common/InputField";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
+import Loader from "../common/Loader";
 const LoginForm = ({ onSubmit }: any) => {
   const [form, setForm] = useState({
     email: "",
@@ -56,6 +57,8 @@ const [showPassword, setShowPassword] = useState(false);
     }
   };
 
+  if(loading)
+    return <Loader/>
  return (
   <div className="p-6 max-w-md mx-auto space-y-6 text-white">
 
